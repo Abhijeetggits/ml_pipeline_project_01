@@ -3,217 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Classifier AI | Machine Learning Pipeline</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>AI Income Predictor Pro</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-bg: #f0f2f5;
-            --card-bg: #ffffff;
-            --header-gradient: linear-gradient(135deg, #33475b 0%, #1a2a3a 100%);
-            --accent-green: #04AA6D;
-            --text-dark: #2d3436;
-            --border-color: #dfe6e9;
+            --bg-color: #0f172a; /* Deep Dark Blue */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-primary: #38bdf8; /* Sky Blue */
+            --accent-secondary: #818cf8; /* Indigo */
+            --text-glow: 0 0 10px rgba(56, 189, 248, 0.5);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: #f8fafc;
             margin: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
         }
 
-        .header {
+        /* The Main Card with Glassmorphism */
+        .main-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             width: 100%;
-            max-width: 850px;
-            background: var(--header-gradient);
-            color: white;
-            padding: 40px 20px;
+            max-width: 900px;
+            padding: 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Premium Title Styling */
+        .header-section {
             text-align: center;
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
-        .header h1 { margin: 0; font-size: 1.8rem; }
-        .header p { margin: 10px 0 0; opacity: 0.8; font-weight: 300; }
-
-        .container {
-            width: 100%;
-            max-width: 850px;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
-        .form-grid {
+        .header-section p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Modern Grid Layout */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
-        .form-group { display: flex; flex-direction: column; }
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
         label {
             font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-left: 5px;
         }
 
-        input[type=text], select {
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        input[type=text]:focus, select:focus {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 0 3px rgba(4, 170, 109, 0.1);
-        }
-
-        .submit-area {
-            grid-column: span 2;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        input[type=submit] {
-            background-color: var(--accent-green);
+        /* Glass Input Fields */
+        input[type="text"], select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 15px;
             color: white;
-            padding: 14px 60px;
-            border: none;
-            border-radius: 30px;
             font-size: 1rem;
-            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        select option {
+            background: #1e293b;
+            color: white;
+        }
+
+        /* Neo-Brutalist Submit Button */
+        .btn-predict {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #0f172a;
+            border: none;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px -5px rgba(56, 189, 248, 0.4);
         }
 
-        input[type=submit]:hover {
-            background-color: #038d5a;
-            transform: translateY(-2px);
+        .btn-predict:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 20px 30px -10px rgba(56, 189, 248, 0.6);
+            filter: brightness(1.1);
         }
 
-        @media screen and (max-width: 650px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .submit-area { grid-column: span 1; }
+        .btn-predict:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            .main-card { padding: 30px; }
+            .header-section h1 { font-size: 1.8rem; }
+            .grid-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Income Prediction System</h1>
-        <p>End-to-End Machine Learning Deployment</p>
-    </div>
+    <div class="main-card">
+        <div class="header-section">
+            <h1>AI Income Classifier</h1>
+            <p>Smart Demographics Prediction Engine</p>
+        </div>
 
-    <div class="container">
-        <!-- Backend se connect karne ke liye correct URL reference -->
         <form action="{{url_for('prediction_data')}}" method="POST">
-            <div class="form-grid">
+            <div class="grid-container">
                 
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="text" id="age" name="age" placeholder="e.g. 30" required>
+                <div class="input-box">
+                    <label for="age">Current Age</label>
+                    <input type="text" id="age" name="age" placeholder="e.g. 28" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="workclass">Workclass</label>
+                <div class="input-box">
+                    <label for="workclass">Employment Sector</label>
                     <select id="workclass" name="workclass">
-                        <option value="3">Private</option>
-                        <option value="6">State-gov</option>
-                        <option value="5">Self-emp-not-inc</option>
-                        <option value="0">Federal-gov</option>
-                        <option value="1">Local-gov</option>
-                        <option value="4">Self-emp-inc</option>
+                        <option value="3">Private Corporate</option>
+                        <option value="6">State Government</option>
+                        <option value="5">Self Employed (Small)</option>
+                        <option value="0">Federal Agency</option>
+                        <option value="1">Local Authority</option>
+                        <option value="4">Self Employed (Inc)</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="education_num">Education Level</label>
+                <div class="input-box">
+                    <label for="education_num">Academic Level</label>
                     <select id="education_num" name="education_num">
-                        <option value="13">Bachelors</option>
-                        <option value="14">Masters</option>
-                        <option value="9">HS-grad</option>
-                        <option value="16">Doctorate</option>
-                        <option value="10">Some-college</option>
+                        <option value="13">Bachelors Degree</option>
+                        <option value="14">Masters Degree</option>
+                        <option value="9">HS Graduate</option>
+                        <option value="16">Doctorate / PhD</option>
+                        <option value="10">Undergraduate</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="marital_status">Marital Status</label>
+                <div class="input-box">
+                    <label for="marital_status">Civil Status</label>
                     <select id="marital_status" name="marital_status">
-                        <option value="4">Never-married</option>
-                        <option value="2">Married-civ-spouse</option>
+                        <option value="4">Single (Never Married)</option>
+                        <option value="2">Married (Civ)</option>
                         <option value="0">Divorced</option>
                         <option value="5">Separated</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="occupation">Occupation</label>
+                <div class="input-box">
+                    <label for="occupation">Professional Role</label>
                     <select id="occupation" name="occupation">
-                        <option value="3">Exec-managerial</option>
-                        <option value="9">Prof-specialty</option>
-                        <option value="0">Adm-clerical</option>
-                        <option value="11">Sales</option>
-                        <option value="12">Tech-support</option>
+                        <option value="3">Executive Managerial</option>
+                        <option value="9">Professional Specialty</option>
+                        <option value="0">Admin Clerical</option>
+                        <option value="11">Sales Executive</option>
+                        <option value="12">Tech Support Specialist</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="relationship">Relationship</label>
+                <div class="input-box">
+                    <label for="relationship">Family Role</label>
                     <select id="relationship" name="relationship">
-                        <option value="1">Not-in-family</option>
+                        <option value="1">Independent</option>
                         <option value="0">Husband</option>
                         <option value="5">Wife</option>
-                        <option value="3">Own-child</option>
+                        <option value="3">Dependent Child</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="race">Race</label>
+                <div class="input-box">
+                    <label for="race">Race / Ethnicity</label>
                     <select id="race" name="race">
                         <option value="4">White</option>
                         <option value="2">Black</option>
-                        <option value="1">Asian-Pac-Islander</option>
+                        <option value="1">Asian Pacific Islander</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="sex">Sex</label>
+                <div class="input-box">
+                    <label for="sex">Gender Identification</label>
                     <select id="sex" name="sex">
                         <option value="1">Male</option>
                         <option value="0">Female</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="hours_per_week">Hours Per Week</label>
-                    <input type="text" id="hours_per_week" name="hours_per_week" placeholder="e.g. 40">
+                <div class="input-box">
+                    <label for="hours_per_week">Weekly Work Hours</label>
+                    <input type="text" id="hours_per_week" name="hours_per_week" placeholder="Default 40">
                 </div>
 
-                <div class="form-group">
-                    <label for="native_country">Country</label>
+                <div class="input-box">
+                    <label for="native_country">Region of Origin</label>
                     <select id="native_country" name="native_country">
-                        <option value="38">United-States</option>
+                        <option value="38">United States</option>
                         <option value="18">India</option>
                         <option value="1">Canada</option>
                         <option value="10">Germany</option>
                     </select>
                 </div>
 
-                <div class="submit-area">
-                    <input type="submit" value="Predict Income Range">
-                </div>
-
+                <button type="submit" class="btn-predict">Analyze & Predict Income</button>
             </div>
         </form>
     </div>
